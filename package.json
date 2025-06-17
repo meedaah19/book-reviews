@@ -1,0 +1,19 @@
+{
+   "name": "capstone-project3",
+   "version": "1.0.0",
+   "description": "A book review, rating, and comment application using EJS and Express",
+   "main": "index.js",
+   "type": "module",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+   },
+   "author": "hameedat",
+   "license": "ISC",
+   "dependencies": {
+      "axios": "^1.9.0",
+      "body-parser": "^2.2.0",
+      "ejs": "^3.1.10",
+      "express": "^5.1.0",
+      "pg": "^8.16.0"
+   }
+}

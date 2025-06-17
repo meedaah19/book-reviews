@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reviews</title>
+</head>
+<body>
+    <%- include('partials/header.ejs') %>
+    <h1>Book Reviews</h1>
+    <div >
+    <% if(reviews.length > 0) {%>
+        <% reviews.forEach(review => { %>
+  <div class="reviews-container">
+    <% if (review.book_cover) { %>
+      <img src="<%= review.book_cover %>" alt="Book Cover">
+    <% } else { %>
+      <p>No cover image available.</p>
+    <% } %>
+    <h2><%= review.title %></h2>
+    <p><strong>Author:</strong> <%= review.author %></p>
+    <p><strong>Rating:</strong> <%= review.rating %></p>
+    <p><strong>Category:</strong> <%= review.category %></p>
+    <% if (review.review.length > 100) { %>
+      <p>
+        <%= review.review.slice(0, 100) %>...
+        <button onclick="toggleReview('<%= review.id %>')">Read More</button>
+      </p>
+      <p  id="full-<%= review.id %>" style="display: none;" ><strong>Review:</strong>
+        <%= review.review %>
+      </p>
+    <% } else { %>
+      <p><strong>Review:</strong> <%= review.review %></p>
+    <% } %>
+    <p><strong>Date:</strong> <%= review.date.toDateString() %></p>
+    <p><strong>Reviewed by:</strong> <%= review.name %></p>
+    <div>
+        <form action="/edit-review/<%= review.id %>" method="GET" >
+            <input type="hidden" name="editId" value="<%= review.id %>">
+            <button type="submit">Edit</button>
+        </form>
+        <form action="/delete-review" method="POST" >
+            <input type="hidden" name="deleteId" value="<%= review.id %>">
+            <button type="submit">Delete</button>
+        </form>
+    </div>
+  </div>
+<% }) %>
+    <% }else{%>
+        <h3>No Reviews yet</h3>
+    <% }  %>
+    </div>
+</body>
+</html>
