@@ -2,20 +2,24 @@ import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
 import axios from 'axios';
+import dotenv from 'dotenv';
 
+
+dotenv.config();
 const app = express();
 const port = 3000;
+
 
 app.use(express.static('public')); // to have access to the files inside public folder
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "books",
-  password: "Meedaah19",
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 db.connect();
 
@@ -101,6 +105,7 @@ app.post('/delete-review', async(req, res) =>{
 
   try {
       await db.query('DELETE FROM reviews WHERE id = $1', [id]);
+      alert("Review deleted successfully");
       res.redirect('/reviews')
   }catch(error) {
     console.error("Error fetching reviews:", error);
@@ -144,3 +149,4 @@ app.post('/edit/:id', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+ 
