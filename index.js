@@ -73,7 +73,7 @@ app.post('/post-review', async(req, res) => {
     
   }catch (error) {
     console.error("Error fetching book data:", error);
-    res.status(500).send("Error fetching book data");
+    res.status(500).send("Error fetching book data"); //
   }
 
   try {
